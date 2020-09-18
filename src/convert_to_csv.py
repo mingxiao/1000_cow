@@ -21,15 +21,18 @@ def get_row_output(row, include_top_30_check=False):
   ]
   if include_top_30_check:
     cell_is_bold = is_bold(row.cells[0])
-    result.append(cell_is_bold)
+    if cell_is_bold:
+      result.append('true')
+    else:
+      result.append('false')
   return result
 
 def convert_docx_table_to_csv(filename, include_top_30_check=False):
   # processes files in the raw/ directory and outputs a csv file in the processed/ directory
-  file_path = os.path.join(os.getcwd(), '..', 'raw', filename)
+  file_path = os.path.join(os.getcwd(), '..', '1000_cow_data', 'raw', filename)
   assert os.path.exists(file_path)
   basename = os.path.splitext(filename)[0]
-  output_file_path = os.path.join(os.getcwd(), '..', 'processed', f'{basename}.csv')
+  output_file_path = os.path.join(os.getcwd(), '..', '1000_cow_data', 'processed', f'{basename}.csv')
   doc = Document(file_path)
   assert doc
   data_table = doc.tables[0]
@@ -48,7 +51,7 @@ def convert_docx_table_to_csv(filename, include_top_30_check=False):
       filewriter.writerow(row_output)
 
 if __name__ == '__main__':
-  puts("Converting docx to csv files")
+  print("Converting docx to csv files")
   convert_docx_table_to_csv('aav8391_Data_S2.docx', include_top_30_check=True)
   convert_docx_table_to_csv('aav8391_Data_S3.docx', include_top_30_check=False)
   convert_docx_table_to_csv('aav8391_Data_S4.docx', include_top_30_check=False)
