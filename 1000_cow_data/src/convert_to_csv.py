@@ -4,12 +4,17 @@ import csv
 import os
 
 def is_bold(cell):
+  if len(cell.paragraphs) == 0:
+    return False
+  if len(cell.paragraphs[0].runs) == 0:
+    return False
   if cell.paragraphs[0].runs[0].bold:
-    return 'true'
+    return True
   else:
-   return 'false'
+   return False
 
 def get_row_output(row, include_top_30_check=False):
+  assert len(row.cells) >= 2
   result =  [
     row.cells[0].text.strip(),
     row.cells[1].text.strip(),
@@ -19,12 +24,12 @@ def get_row_output(row, include_top_30_check=False):
     result.append(cell_is_bold)
   return result
 
-def process_file(filename, include_top_30_check=False):
+def convert_docx_table_to_csv(filename, include_top_30_check=False):
   # processes files in the raw/ directory and outputs a csv file in the processed/ directory
-  file_path = os.path.join(os.getcwd(), 'raw', filename)
+  file_path = os.path.join(os.getcwd(), '..', 'raw', filename)
   assert os.path.exists(file_path)
   basename = os.path.splitext(filename)[0]
-  output_file_path = os.path.join(os.getcwd(), 'processed', f'{basename}.csv')
+  output_file_path = os.path.join(os.getcwd(), '..', 'processed', f'{basename}.csv')
   doc = Document(file_path)
   assert doc
   data_table = doc.tables[0]
@@ -42,14 +47,8 @@ def process_file(filename, include_top_30_check=False):
       row_output = get_row_output(row, include_top_30_check)
       filewriter.writerow(row_output)
 
-
-
-# file_path = os.path.join(os.getcwd(), 'raw', 'aav8391_Data_S2.docx')
-# document = Document(file_path)
-# >>> doc.tables[0].rows[0].cells[0].text
-# 'Taxonomic group'
-# >>> doc.tables[0].rows[0].cells[0].paragraphs[0].runs[0].bold
-# print(document)
-# process_file('aav8391_Data_S2.docx', include_top_30_check=True)
-# process_file('aav8391_Data_S3.docx', include_top_30_check=False)
-process_file('aav8391_Data_S4.docx', include_top_30_check=False)
+if __name__ == '__main__':
+  puts("Converting docx to csv files")
+  convert_docx_table_to_csv('aav8391_Data_S2.docx', include_top_30_check=True)
+  convert_docx_table_to_csv('aav8391_Data_S3.docx', include_top_30_check=False)
+  convert_docx_table_to_csv('aav8391_Data_S4.docx', include_top_30_check=False)
