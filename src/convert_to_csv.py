@@ -3,6 +3,8 @@ from docx import Document
 import csv
 import os
 
+DATA_DIR=os.path.join(os.path.dirname(__file__), '..', '1000_cow_data')
+
 def is_bold(cell):
   if len(cell.paragraphs) == 0:
     return False
@@ -29,10 +31,10 @@ def get_row_output(row, include_top_30_check=False):
 
 def convert_docx_table_to_csv(filename, include_top_30_check=False):
   # processes files in the raw/ directory and outputs a csv file in the processed/ directory
-  file_path = os.path.join(os.getcwd(), '..', '1000_cow_data', 'raw', filename)
+  file_path = os.path.join(DATA_DIR, 'raw', filename)
   assert os.path.exists(file_path)
   basename = os.path.splitext(filename)[0]
-  output_file_path = os.path.join(os.getcwd(), '..', '1000_cow_data', 'processed', f'{basename}.csv')
+  output_file_path = os.path.join(DATA_DIR, 'processed', f'{basename}.csv')
   doc = Document(file_path)
   assert doc
   data_table = doc.tables[0]
