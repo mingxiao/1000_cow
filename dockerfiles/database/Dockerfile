@@ -1,4 +1,7 @@
 FROM mysql/mysql-server
+FROM ubuntu:xenial
 
-RUN mkdir -p ~/data/processed
-ADD ./1000_cow_data/processed ~/data/processed
+RUN mkdir -p /tmp/data/processed
+COPY ./processed /tmp/data/processed
+
+EXPOSE 3306
