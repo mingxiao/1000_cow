@@ -2,7 +2,7 @@ import pytest
 import docx
 import sys
 import os
-src_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src')
+src_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'script')
 sys.path.append(src_dir)
 import convert_to_csv
 
@@ -38,7 +38,7 @@ class TestConvertToCSV:
     assert result == ['cell1', 'cell2']
 
     result = convert_to_csv.get_row_output(row, include_top_30_check=True)
-    assert result == ['cell1', 'cell2', False]
+    assert result == ['cell1', 'cell2',  'false']
 
   def test_convert_docx_table_to_csv(self):
     return False
