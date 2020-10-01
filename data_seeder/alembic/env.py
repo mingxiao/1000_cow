@@ -5,6 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
+import os
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -44,10 +46,37 @@ def run_migrations_offline():
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
+    print("OFFLINE")
 
     with context.begin_transaction():
         context.run_migrations()
 
+def get_db_url_from_env():
+    if 'MYSQL_USER' in os.environ:
+        mysql_user = os.environ['MYSQL_USER']
+    else:
+        print('MYSQL_USER not set')
+        return None
+
+    if 'MYSQL_PASSWORD' in os.environ:
+        mysql_password = os.environ['MYSQL_PASSWORD']
+    else:
+        print('MYSQL_PASSWORD not set')
+        return None
+
+    if 'MYSQL_HOST' in os.environ:
+        mysql_host = os.environ['MYSQL_HOST']
+    else:
+        print('MYSQL_HOST not set')
+        return None
+
+    if 'MYSQL_DB' in os.environ:
+        mysql_db = os.environ['MYSQL_DB']
+    else:
+        print('MYSQL_DB not set')
+        return None
+
+    return f'mysql://{mysql_user}:{mysql_password}@{mysql_host}/{mysql_db}'
 
 def run_migrations_online():
     """Run migrations in 'online' mode.
@@ -56,8 +85,15 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    db_url = get_db_url_from_env()
+    if db_url == None:
+        print("MISSING ENV VARS")
+        return
+    section = config.get_section(config.config_ini_section)
+    section['sqlalchemy.url'] = db_url
+
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
+        section,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
