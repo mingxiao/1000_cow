@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: db-deply
+  name: db-deply
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-deply
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: db-deply
+    spec:
+      containers:
+      - image: database
+        name: database
+        imagePullPolicy: Never # Use private image
+        resources: {}
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: Admin123 # Todo use secret
+        ports:
+        - containerPort: 3306
+          name: mysql
+status: {}
