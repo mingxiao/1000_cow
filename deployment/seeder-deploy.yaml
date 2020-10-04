@@ -3,35 +3,32 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: db-deply
-  name: db-deply
+    app: seeder-deply
+  name: seeder-deply
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: db-deply
+      app: seeder-deply
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: db-deply
+        app: seeder-deply
     spec:
       containers:
-      - image: database
-        name: database
+      - image: seeder
+        name: seeder
         imagePullPolicy: Never # Use private image
         resources: {}
         env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: Admin123 # Todo use secret
         - name: MYSQL_PASSWORD
           value: Admin123 # Todo use secret
+        - name: MYSQL_HOST
+          value: db-service
         - name: MYSQL_USER
           value: monty
-        - name: MYSQL_DATABASE
+        - name: MYSQL_DB
           value: 1000_cows
-        ports:
-        - containerPort: 3306
-          name: mysql
 status: {}
