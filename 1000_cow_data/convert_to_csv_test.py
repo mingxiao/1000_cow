@@ -2,9 +2,8 @@ import pytest
 import docx
 import sys
 import os
-src_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'script')
-sys.path.append(src_dir)
-import convert_to_csv
+
+from script import convert_to_csv
 
 class TestConvertToCSV:
   @pytest.fixture
