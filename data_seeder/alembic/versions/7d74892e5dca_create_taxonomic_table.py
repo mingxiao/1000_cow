@@ -18,12 +18,12 @@ depends_on = None
 
 def upgrade():
     op.create_table(
-        'taxonomic_group',
+        'taxonomic_groups',
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('taxonomic_group', sa.String(50), nullable=False),
+        sa.Column('group_name', sa.String(50), nullable=False),
         sa.Column('presence', sa.Boolean),
         sa.Column('top30', sa.Boolean),
     )
 
 def downgrade():
-    op.drop_table('taxonomic_group')
+    op.drop_table('taxonomic_groups')

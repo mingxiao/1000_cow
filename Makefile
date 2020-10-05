@@ -6,7 +6,7 @@ build_database_image:
 	docker build -t database ./database_app
 
 run_database_container:
-	docker run -d --name=db -p3306:3306 -e MYSQL_ROOT_PASSWORD=Admin123 database
+	docker run -d --name=db -p3306:3306 -e MYSQL_PASSWORD=Admin123 -e MYSQL_USER=monty -e MYSQL_DATABASE=1000_cows database
 
 start_database_container: clear_database_container build_database_image run_database_container
 
