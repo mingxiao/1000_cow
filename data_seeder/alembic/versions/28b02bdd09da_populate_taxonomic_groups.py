@@ -19,6 +19,9 @@ depends_on = None
 def insert_taxnomic_group(group, presence, in_top_30):
     is_present = presence == 'Present'
     is_in_top_30 = in_top_30 == 'true'
+    # TODO guard against sql injection, consider:
+    # - regexing group_names
+    # - using prepared statments or an ORM
     op.execute(f"INSERT INTO taxonomic_groups (group_name, presence, top30) VALUES ('{group}', {is_present}, {is_in_top_30})")
 
 def upgrade():
