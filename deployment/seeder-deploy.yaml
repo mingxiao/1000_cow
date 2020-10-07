@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: seeder-deply
-  name: seeder-deply
+    app: seeder-deploy
+  name: seeder-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: seeder-deply
+      app: seeder-deploy
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: seeder-deply
+        app: seeder-deploy
     spec:
       containers:
       - image: seeder
