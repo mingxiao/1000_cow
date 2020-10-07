@@ -3,7 +3,7 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: db-deply
+    app: db-deploy
   name: db-service
 spec:
   ports:
@@ -11,6 +11,6 @@ spec:
     protocol: TCP
     targetPort: 3306
   selector:
-    app: db-deply
+    app: db-deploy
 status:
   loadBalancer: {}

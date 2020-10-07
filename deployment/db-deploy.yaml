@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: db-deply
-  name: db-deply
+    app: db-deploy
+  name: db-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: db-deply
+      app: db-deploy
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: db-deply
+        app: db-deploy
     spec:
       containers:
       - image: database
