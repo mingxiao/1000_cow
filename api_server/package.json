@@ -10,5 +10,8 @@
     "jest": "^26.5.2",
     "sqlite": "^4.0.15",
     "supertest": "^5.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/jest"
   }
 }

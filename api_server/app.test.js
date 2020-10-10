@@ -1,4 +1,4 @@
-const {app} = require ('./app');
+const {app, server} = require ('./app');
 const request = require('supertest');
 
 describe('/', () => {
@@ -7,3 +7,7 @@ describe('/', () => {
     expect(res.status).toBe(200)
   });
 })
+
+afterAll(() => {
+  server.close()
+});
