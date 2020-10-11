@@ -3,7 +3,7 @@ const app = express()
 const port = process.env.PORT || 5000
 const { Sequelize } = require('sequelize');
 
-let db_str = '';
+let db_str: string = '';
 if (process.env.ENV == 'test') {
   db_str = 'sqlite::memory:'
 }

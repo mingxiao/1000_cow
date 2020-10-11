@@ -1,4 +1,4 @@
-const {app, server} = require ('./app');
+const {app, server} = require ('../built/app');
 const request = require('supertest');
 
 describe('/', () => {
