@@ -28,6 +28,7 @@ app.get('/data', (req, res) => {
     }
     res.status(400).send(body)
   }
+  res.status(200).send({})
 })
 
 const server = app.listen(port, () => {

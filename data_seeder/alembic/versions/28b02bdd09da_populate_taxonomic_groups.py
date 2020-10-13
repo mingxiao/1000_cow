@@ -22,7 +22,7 @@ def insert_taxnomic_group(group, presence, in_top_30):
     # TODO guard against sql injection, consider:
     # - regexing group_names
     # - using prepared statments or an ORM
-    op.execute(f"INSERT INTO taxonomic_groups (group_name, presence, top30) VALUES ('{group}', {is_present}, {is_in_top_30})")
+    op.execute(f"INSERT INTO taxonomic_groups (group_name, presence, inTop30) VALUES ('{group}', {is_present}, {is_in_top_30})")
 
 def upgrade():
     data_file = os.path.join(os.path.dirname(__file__), '..', '..', 'processed', 'aav8391_Data_S2.csv')

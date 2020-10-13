@@ -22,7 +22,7 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('group_name', sa.String(50), nullable=False),
         sa.Column('presence', sa.Boolean),
-        sa.Column('top30', sa.Boolean),
+        sa.Column('inTop30', sa.Boolean),
     )
 
 def downgrade():
