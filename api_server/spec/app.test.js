@@ -20,8 +20,8 @@ describe('/data', () => {
             "id": 1,
             "attributes": {
               "group_name": "some-group",
-              "presence": false,
-              "inTop30": true
+              "in_present_study": false,
+              "in_top_30": true
             }
           },
           {
@@ -29,8 +29,8 @@ describe('/data', () => {
             "id": 2,
             "attributes": {
               "group_name": "some-group-2",
-              "presence": true,
-              "inTop30": false
+              "in_present_study": true,
+              "in_top_30": false
             }
           }
         ]

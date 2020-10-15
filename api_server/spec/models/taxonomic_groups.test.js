@@ -1,6 +1,5 @@
 import TaxononmicGroups from '../../built/models/taxonomic_groups';
 import {createConnection, getRepository} from "typeorm";
-import { isExportDeclaration } from 'typescript';
 
 const connectOpts = {
   type: 'sqlite',
@@ -8,14 +7,21 @@ const connectOpts = {
   entities: [TaxononmicGroups],
   logging: true
 }
-fdescribe('TaxonomicGroups', () => {
+
+describe('TaxonomicGroups', () => {
   describe('create', () => {
     test('it has the correct arguments', async () => {
       const connection = await createConnection(connectOpts);
-      // console.log({connection, TaxononmicGroups})
       const groupsRepo = connection.getRepository(TaxononmicGroups);
-      const group = groupsRepo.create({group_name: "some-group"});
-      expect(group.group_name).toEqual('some-group')
+      const groupArgs = {
+        groupName: 'some-group',
+        inPresentStudy: true,
+        inTop30: false
+      }
+      const group = groupsRepo.create(groupArgs);
+      expect(group.groupName).toEqual(groupArgs.groupName)
+      expect(group.inPresentStudy).toEqual(groupArgs.inPresentStudy)
+      expect(group.inTop30).toEqual(groupArgs.inTop30)
     })
   })
 })

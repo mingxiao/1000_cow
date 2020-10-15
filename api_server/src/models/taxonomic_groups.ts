@@ -6,5 +6,11 @@ export default class TaxonomicGroups {
     id: number
 
     @Column()
-    group_name: string
+    groupName: string
+
+    @Column()
+    inPresentStudy: string
+
+    @Column()
+    inTop30: string
 }
