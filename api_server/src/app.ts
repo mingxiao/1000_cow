@@ -1,14 +1,7 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 5000
-const { Sequelize } = require('sequelize');
 import {ResponseError} from './interfaces'
-
-let db_str: string = '';
-if (process.env.ENV == 'test') {
-  db_str = 'sqlite::memory:'
-}
-const sequelize = new Sequelize(db_str)
 
 app.get('/', (req, res) => {
   res.send('Hello World')
