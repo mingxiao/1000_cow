@@ -7,20 +7,7 @@ app.get('/', (req, res) => {
   res.send('Hello World')
 })
 
-const VALID_TABLES = ['taxonomic_groups']
-
-app.get('/data', (req, res) => {
-  const table_name = req.query.table_name
-  if (!VALID_TABLES.includes(table_name)){
-    const error: ResponseError = {
-      "title": "Unknown Table",
-      "detail": `Unknown Table: ${table_name}`
-    }
-    const body = {
-      "errors": [error]
-    }
-    res.status(400).send(body)
-  }
+app.get('/data/taxonomic_groups', (req, res) => {
   res.status(200).send({})
 })
 

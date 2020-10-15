@@ -1,5 +1,5 @@
 import TaxononmicGroups from '../../built/models/taxonomic_groups';
-import {createConnection, getRepository} from "typeorm";
+import {createConnection} from "typeorm";
 
 const connectOpts = {
   type: 'sqlite',
