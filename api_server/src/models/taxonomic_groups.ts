@@ -5,12 +5,12 @@ export default class TaxonomicGroups {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column('text')
     groupName: string
 
-    @Column()
+    @Column('text')
     inPresentStudy: string
 
-    @Column()
+    @Column('text')
     inTop30: string
 }

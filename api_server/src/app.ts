@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 5000
-import {ResponseError} from './interfaces'
+import TaxononmicGroups from './models/taxonomic_groups';
 
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
 
-app.get('/data/taxonomic_groups', (req, res) => {
+app.get('/data/taxonomic_groups', async (req, res) => {
   res.status(200).send({})
 })
 

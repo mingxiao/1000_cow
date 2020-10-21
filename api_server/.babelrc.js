@@ -7,7 +7,11 @@ module.exports = api => {
    * caching was left unconfigured error.
    */  api.cache(true);
   return {
-    plugins: ["@babel/plugin-transform-runtime"],
+    plugins: [
+      "@babel/plugin-transform-runtime",
+      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      ['@babel/plugin-proposal-class-properties']
+    ],
     presets: [
       // Enabling Babel to understand TypeSFcript
       '@babel/preset-typescript',

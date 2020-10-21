@@ -1,17 +1,17 @@
-import TaxononmicGroups from '../../built/models/taxonomic_groups';
-import {createConnection} from "typeorm";
-
-const connectOpts = {
-  type: 'sqlite',
-  database: '/tmp/db.sqlite',
-  entities: [TaxononmicGroups],
-  logging: true
-}
+import TaxononmicGroups from '../../src/models/taxonomic_groups';
+import {getConnection} from '../../src/utils'
 
 describe('TaxonomicGroups', () => {
   describe('create', () => {
+    let connection;
+    beforeEach(async () => {
+      connection = getConnection()
+      await connection.connect()
+      const groupsRepo = connection.getRepository(TaxononmicGroups);
+      groupsRepo.clear()
+    });
+
     test('it has the correct arguments', async () => {
-      const connection = await createConnection(connectOpts);
       const groupsRepo = connection.getRepository(TaxononmicGroups);
       const groupArgs = {
         groupName: 'some-group',
@@ -22,6 +22,6 @@ describe('TaxonomicGroups', () => {
       expect(group.groupName).toEqual(groupArgs.groupName)
       expect(group.inPresentStudy).toEqual(groupArgs.inPresentStudy)
       expect(group.inTop30).toEqual(groupArgs.inTop30)
-    })
+    });
   })
 })

@@ -1,14 +1,7 @@
 const {app, server} = require ('../built/app');
 const request = require('supertest');
-import {createConnection} from "typeorm";
-import TaxononmicGroups from '../built/models/taxonomic_groups'
-
-const connectOpts = {
-  type: 'sqlite',
-  database: '/tmp/db.sqlite',
-  entities: [TaxononmicGroups],
-  logging: true
-}
+import TaxononmicGroups from '../src/models/taxonomic_groups'
+import {getConnection} from '../src/utils'
 
 describe('/', () => {
   test('GET', async () => {
@@ -19,16 +12,23 @@ describe('/', () => {
 
 describe('/data/taxonomic_groups', () => {
   beforeEach(async () => {
-    const connection = await createConnection(connectOpts);
-    await connection.synchronize()
+    const connection = getConnection();
+    await connection.connect()
     const groupsRepo = connection.getRepository(TaxononmicGroups);
-    const groupArgs = {
+    await groupsRepo.clear()
+    const groups = [{
       groupName: 'some-group',
       inPresentStudy: true,
       inTop30: false
-    }
-    groupsRepo.create(groupArgs);
-    await connection.synchronize()
+    }, {
+      groupName: 'some-group-2',
+      inPresentStudy: false,
+      inTop30: true
+    }]
+    const group1 = groupsRepo.create(groups[0]);
+    await groupsRepo.save(group1)
+    const group2 = groupsRepo.create(groups[1]);
+    await groupsRepo.save(group2)
     const all = await groupsRepo.find()
     console.log({all})
   })
