@@ -1,4 +1,4 @@
-const {app, server} = require ('../built/app');
+const {app, server} = require ('../src/app');
 const request = require('supertest');
 import TaxononmicGroups from '../src/models/taxonomic_groups'
 import {getConnection} from '../src/utils'
@@ -29,12 +29,10 @@ describe('/data/taxonomic_groups', () => {
     await groupsRepo.save(group1)
     const group2 = groupsRepo.create(groups[1]);
     await groupsRepo.save(group2)
-    const all = await groupsRepo.find()
-    console.log({all})
   })
 
   test('it returns all the data', async () => {
-    const res = await request(app).get('/data?table_name=taxonomic_groups');
+    const res = await request(app).get('/data/taxonomic_groups');
     expect(res.status).toBe(200)
     const expectedBody = {
       "data": [
