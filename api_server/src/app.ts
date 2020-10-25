@@ -9,16 +9,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('/data/taxonomic_groups', async (req, res) => {
-  console.log('here')
   const connection = getConnection();
   if (!connection.isConnected){
     await connection.connect();
   }
   const groupRepo = connection.getRepository(TaxononmicGroups);
   const groups = await groupRepo.find();
-  console.log({groups})
-
-  res.status(200).send()
+  const data = groups.map(group => group.toJSONAPI())
+  res.status(200).send({
+    links: {
+      self: '/taxonomic_groups'
+    },
+    data
+  })
 })
 
 const server = app.listen(port, () => {

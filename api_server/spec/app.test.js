@@ -11,6 +11,8 @@ describe('/', () => {
 })
 
 describe('/data/taxonomic_groups', () => {
+  let jsonMock;
+
   beforeEach(async () => {
     const connection = getConnection();
     await connection.connect()
@@ -29,34 +31,20 @@ describe('/data/taxonomic_groups', () => {
     await groupsRepo.save(group1)
     const group2 = groupsRepo.create(groups[1]);
     await groupsRepo.save(group2)
+    jsonMock = jest.fn()
+    TaxononmicGroups.toJSONAPI = jsonMock
   })
 
   test('it returns all the data', async () => {
     const res = await request(app).get('/data/taxonomic_groups');
     expect(res.status).toBe(200)
-    const expectedBody = {
-      "data": [
-        {
-          "type": "taxonomic_groups",
-          "id": 1,
-          "attributes": {
-            "group_name": "some-group",
-            "in_present_study": false,
-            "in_top_30": true
-          }
-        },
-        {
-          "type": "taxonomic_groups",
-          "id": 2,
-          "attributes": {
-            "group_name": "some-group-2",
-            "in_present_study": true,
-            "in_top_30": false
-          }
-        }
-      ]
-    }
-    expect(res.body).toEqual(expectedBody);
+    expect(res.body.data.length).toEqual(2)
+    expect(res.body).toEqual(expect.objectContaining({
+      links: {
+        self: '/taxonomic_groups'
+      },
+      data: expect.any(Array)
+    }))
   })
 });
 

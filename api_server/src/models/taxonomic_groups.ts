@@ -8,9 +8,21 @@ export default class TaxonomicGroups {
     @Column('text')
     groupName: string
 
-    @Column('text')
-    inPresentStudy: string
+    @Column('boolean')
+    inPresentStudy: boolean
 
-    @Column('text')
-    inTop30: string
+    @Column('boolean')
+    inTop30: boolean
+
+    toJSONAPI = () => {
+        return {
+            type: 'taxonomic_groups',
+            id: this.id,
+            attributes: {
+                groupName: this.groupName,
+                inPresentStudy: this.inPresentStudy,
+                inTop30: this.inTop30
+            }
+        }
+    }
 }

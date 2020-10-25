@@ -18,7 +18,3 @@ export const getConnection = (connectionName = 'test') => {
     return conManager.create(connectOpts)
   }
 }
-
-export const formatEntity = (entity) => {
-
-}
